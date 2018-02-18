@@ -9,7 +9,7 @@ class DataUtils {
 
     // Only use if object is instantiated and the connect is closed
     public function openConnection() {
-        $this->conn = new mysqli( "localhost:3306", "root", "", "portfolio2018");
+        $this->conn = new mysqli( "localhost:3306", "root", "kkkok", "symplicity_votes");
     }
 
     // Executes a Query String
@@ -48,18 +48,38 @@ class DataUtils {
        return false;
     }
 
-    public function setLoginSessions($user) {
+    public function setLoginSessions($name, $key) {
        // Sets Sessions for login here
-       $_SESSION['login_user'] = $user;
-       $_SESSION['UserKey'] = $this->getUserKey($user);
+       $_SESSION['last_voter'] = $name;
+       $_SESSION['UserKey'] = $key;//$this->getUserKey($name);
     }
 
-    public function destroySessions($user) {
+    public function destroySessions() {
        // Destroy Sessions for login here
        session_destroy();
     }
+    public function getVoterKey($name) {
+      $sql = "SELECT usr_key FROM symplicity_votes.vo_voters where vot_name = '%s' and vot_delete_flag = 0;";
 
-    public function getUserKey($user) {
+      $result = $this->conn->query(sprintf($sql, $name));
+      if($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          $key = $row["vot_key"];
+          return $key;
+        }
+      } else {
+        return "";
+      }
+    }
+
+    public function isVoterLoggedIn() {
+       if(!empty($_SESSION['last_voter']) &&  !empty($_SESSION['UserKey'])) {
+         return true;
+       } else {
+         return false;
+       }
+    }
+    /*public function getUserKey($user) {
       $sql = "SELECT usr_key FROM portfoliosite2018.co_admin where usr_user_name = '%s' and usr_delete_flag = 0;";
 
       $result = $this->conn->query(sprintf($sql, $user));
@@ -71,7 +91,7 @@ class DataUtils {
       } else {
         return "";
       }
-    }
+    }*/
 
     /*
     function Salt(){
