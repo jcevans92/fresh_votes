@@ -16,14 +16,14 @@ $bValid = false;
 // Get Fruit Info
 $fruitArray = [];
   // just query for the fruit. This is users first time
-  $getFruitSql = "SELECT * FROM fr_fruits WHERE fru_delete_flag = 0;";
+  $getFruitSql = "SELECT * FROM fr_fruits WHERE fru_delete_flag = 0 order by fru_votes desc;";
   $response = $dbUtils->ExecuteScalar($getFruitSql);
   if($response->num_rows > 0) {
     while($row = $response->fetch_assoc()) {
       $row1 = $row;
       array_push($fruitArray, ['fru_key' => $row["fru_key"],
       'fru_name'=>$row["fru_name"],
-      'vxf_vote'=>0]);
+      'fru_votes'=>$row["fru_votes"]]);
     }
   }
 

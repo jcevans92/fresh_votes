@@ -114,3 +114,19 @@ li {
 .unstyled {
   padding-left:0 !important;
 }
+.votes-list{
+  width:100%;
+}
+.votes-label {
+  float:left;
+}
+.fruit-name {
+  float:right;
+  margin-right:75 !important;
+}
+
+.logout-btn {
+  position:relative;
+  text-decoration: none;
+  float:right;
+}

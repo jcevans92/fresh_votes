@@ -7,5 +7,12 @@ class Utils {
        return false;
      }
   }
+  public function destroySessions() {
+     // Destroy Sessions for login here
+     session_destroy();
+
+     unset($_SESSION['last_voter']);
+     unset($_SESSION['UserKey']);
+  }
 }
  ?>

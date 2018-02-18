@@ -1,4 +1,5 @@
 voterApp.controller('voteFruitController', function($http, $window, $location) {
+      //voteList.bNotSubmitted = true;
       var vote = this;
       //vote.votes = [];
       // get votes
@@ -9,6 +10,7 @@ voterApp.controller('voteFruitController', function($http, $window, $location) {
                 if(response.data == "success") {
                   alert("success");
                 } else {
+                  vote.bNotSubmitted = true;
                   // handle failure
                   //console.log(response);
                   vote.votes = response.data;
@@ -23,27 +25,28 @@ voterApp.controller('voteFruitController', function($http, $window, $location) {
 
       vote.submitVote = function () {
         // Submit Vote
-        var jsonData = {
-           vot_key: vote.vot_key,
-           fru_key: vote.fru_key,
-           vxf_vote: vote.vxf_vote
-           };
+        var jsonData = {"votes" : vote.votes};
 
+        //console.log(jsonData);
         $http({
                 method: "post",
-                url: "ajax/loginStudent.php",
+                url: "ajax/submitVote.php",
                 data: JSON.stringify(jsonData)
             }).then(function successCallback(response) {
               // this callback will be called asynchronously
               // when the response is available
+              console.log(response);
               if(response.data == "success") {
-                alert("success");
+                var host = $window.location.host;
+                var url = host + "/thankyou.php";
+                $window.location = 'thankyou.php';//$location.path(url);
               } else {
                 // handle failure
                 console.log(response);
               }
               //alert("Successfully Logged In");
            }, function errorCallback(response) {
+             alert("Bad Route");
            });
       };
   });
