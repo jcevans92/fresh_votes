@@ -59,7 +59,7 @@ class DataUtils {
        session_destroy();
     }
     public function getVoterKey($name) {
-      $sql = "SELECT usr_key FROM symplicity_votes.vo_voters where vot_name = '%s' and vot_delete_flag = 0;";
+      $sql = "SELECT vot_key FROM symplicity_votes.vo_voters where vot_name = '%s' and vot_delete_flag = 0;";
 
       $result = $this->conn->query(sprintf($sql, $name));
       if($result->num_rows > 0) {

@@ -1,7 +1,7 @@
 <?php
 require 'DatabaseUtils.php';
 
-  //session_start(); // Starting Session
+  session_start(); // Starting Session
   //echo 'Test';
   // check username or password from database
   $postdata = file_get_contents("php://input");
@@ -22,7 +22,7 @@ require 'DatabaseUtils.php';
   if($response->num_rows > 0) {
     // Get The top row
     while($row = $response->fetch_assoc()) {
-      $userKey = $row["usr_key"];
+      $userKey = $row["vot_key"];
       $bValid = true;
     }
   }
