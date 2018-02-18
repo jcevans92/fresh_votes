@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Fresh Votes!</title>
-  </head>
-  <body>
-    
-  </body>
-</html>
+<?php include('template/header.php') ?>
+    <!-- -->
+<?php include('template/footer.php') ?>
